@@ -1,31 +1,24 @@
-# ===== WATERFALL MODEL =====
 import matplotlib.pyplot as plt
 import numpy as np
 
-print("=== WATERFALL MODEL ===")
+def quadratic_weather_model(t):
+    return 0.1 * t**2 - 1.2 * t + 25
 
-# Plan -> Develop -> Test -> Deliver (one cycle)
-def quadratic_weather_model(hour):
-    # Example quadratic model: temp = a*hour² + b*hour + c
-    a, b, c = -0.02, 0.5, 15   # coefficients (adjust as needed)
-    return a * (hour ** 2) + b * hour + c
+print("=== WATERFALL MODE ===")
+hours = list(range(0, 25, 6))  # 0,6,12,18,24
+temps = [quadratic_weather_model(h) for h in hours]
 
-# Hours (every 6 hrs)
-hours = np.arange(0, 25, 6)
-temps = []
+for h, T in zip(hours, temps):
+    print(f"Time: {h} hrs -> Predicted Temp: {T:.2f}°C")
 
-# Predictions
-for hour in hours:
-    temp = quadratic_weather_model(hour)
-    temps.append(temp)
-    print(f"Time: {hour} hrs -> Predicted Temp: {temp:.2f}°C")
-
-# Plot the graph
+# Graph
 plt.figure(figsize=(8,5))
-plt.plot(hours, temps, marker='o', linestyle='-', color='b', label="Predicted Temp")
-plt.title("Waterfall Model - Weather Prediction")
-plt.xlabel("Time (hours)")
+plt.plot(hours, temps, marker="o", label="Waterfall Cycle")
+plt.title("Waterfall Model (One Sequential Cycle)")
+plt.xlabel("Time (hrs)")
 plt.ylabel("Temperature (°C)")
-plt.grid(True, linestyle="--", alpha=0.6)
+plt.grid(True)
 plt.legend()
-plt.show()
+plt.savefig("waterfall_graph.png")
+print("Graph saved as waterfall_graph.png")
+
